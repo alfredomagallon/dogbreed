@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='css/dogbreed.css') }}">    
+   <title>Dog breed identification service</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <h1>Dog breed identification service</h1>
+    <h3>Powered by <img style="vertical-align: top" src="{{ url_for('static', filename='images/biganimal_logo.svg') }}"> and <img style="vertical-align: top" src="{{ url_for('static', filename='images/tensorflow_logo.png') }}"></h3>
+    <br><br><br>    
+    {% block content %} {% endblock %}          
+  </body>
+</html>

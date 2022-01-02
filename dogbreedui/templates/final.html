@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+<h3>Latest attempts&nbsp;&nbsp;&nbsp;&nbsp;<a href="/"><button class="btn btn-secondary">Try with another dog</button></a></h3>
+</br></br>
+{% for attempt in history %}
+    <span style="font-size: larger">We identified ... <img style="max-height: 150px; width: auto;" id="dog_picture" src="data:image/jpeg;base64,{{ attempt[0] }}" class="img-thumbnail"></span>
+    <span style="font-size: larger"> ... as a {{ attempt[1] }}.</span>
+    <span style="font-size: larger">Sender said this was ... </span>
+    {% if attempt[2]==True %}
+    <span><img style="vertical-align: text-bottom; max-height: 50px" src="{{ url_for('static', filename='images/ok.png') }}"></span>
+    {% else %}
+    <span><img style="vertical-align: text-bottom; max-height: 50px" src="{{ url_for('static', filename='images/ko.png') }}"></span>
+    {% endif %}    
+    </br></br>
+{% endfor %}
+</br></br>
+</center>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>  
+{% endblock %}

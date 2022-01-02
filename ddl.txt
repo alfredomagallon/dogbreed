@@ -1,0 +1,5 @@
+CREATE DATABASE dogbreed
+\c dogbreed
+CREATE TABLE breeds (id smallint NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)
+CREATE TABLE pictures (breed_id smallint NOT NULL, id smallint NOT NULL, name varchar(255), picture bytea, PRIMARY KEY (breed_id, id))
+CREATE TABLE history (id serial, picture bytea, breed varchar(255), success boolean)

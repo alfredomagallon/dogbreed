@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+<img style="max-height: 400px; width: auto;" id="dog_picture" src="data:image/jpeg;base64,{{ picture }}" class="img-thumbnail">
+<br><br>
+<h2>Your dog seems a <span style="color: #d90082">{{ breed }}</span></h1>
+<h3>Are we <span style="color: #e6631f">right</span>?</h3>
+<br>
+<form method=post enctype=multipart/form-data>
+  <input type="hidden" name="image" value="{{ picture }}">
+  <input type="hidden" name="breed" value="{{ breed }}">
+  <input class="btn btn-success" type="submit" name="submit_button" value="  Yes  ">&nbsp;&nbsp;&nbsp;&nbsp;
+  <input class="btn btn-danger" type="submit" name="submit_button" value="  No  ">
+</form>
+</br></br
+</center>
+{% endblock %}

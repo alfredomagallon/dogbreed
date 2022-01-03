@@ -1,0 +1,1 @@
+docker run -d -p 443:443 --mount type=bind,source=/etc/letsencrypt,target=/etc/letsencrypt,readonly --env-file dogbreed.envfile oder70/dogbreedui:<tag>

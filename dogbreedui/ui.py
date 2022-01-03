@@ -133,4 +133,6 @@ def index():
 
 if __name__ == "__main__":
     bootstrap()
-    app.run(host='0.0.0.0', port='80', debug=False)
+    ssl_context=(os.environ.get("DOGBREEDUI_CERT"), os.environ.get("DOGBREEDUI_KEY"))
+    print(ssl_context)
+    app.run(host='0.0.0.0', port='443', ssl_context=ssl_context, debug=False)

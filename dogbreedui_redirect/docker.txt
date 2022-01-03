@@ -1,0 +1,1 @@
+docker run -d -p 80:80 --env-file dogbreed.envfile oder70/dogbreedui_redirect:1.0

@@ -122,7 +122,7 @@ def index():
                         if r.json()['predictions'][i]['probability']>max_prob:
                             max_prob = r.json()['predictions'][i]['probability']
                             predicted_breed = r.json()['predictions'][i]['breed']                    
-                    picture = Image.open(file.stream)
+                    picture = Image.thumbnail((400,400),Image.open(file.stream))
                     imgbytes = io.BytesIO()
                     picture.save(imgbytes, "JPEG")
                     encoded_picture = base64.b64encode(imgbytes.getvalue())            

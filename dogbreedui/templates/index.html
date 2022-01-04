@@ -9,16 +9,18 @@
   <label id="selected-file">(No picture chosen)</label>
   </br></br>
   <input class="btn btn-secondary" name="submit_button" type="submit" value="Send"></input>
+</br></br>
+<div style="width: 80%; color: grey; font-size: small">We detect the following breeds: Akita, alaskan malamute, american pit bull terrier, american staffordshire terrier, australian cattle dog, australian shepherd, basset hound, beagle, belgian malinois, bernese mountain dog, bichon frise, border collie, boston terrier, boxer, bull terrier, bulldog, cane corso, chihuahua, chow-chow, cocker spaniel, dachshund, dalmatian, dobermann, french bulldog, german shepherd, golden retriever, great dane, greyhound, labrador retriever, maltese, miniature pinscher, newfoundland, pomeranian, poodle, pug, rhodesian ridgeback, rottweiler, samoyed, shiba inu, shih tzu, siberian husky, st. bernard, staffordshire bull terrier, west highland white terrier and yorkshire terrier.</div>
+</br></br>
+<div style="width: 80%; color: grey; font-size: small">If you submit a non-corresponding picture, we will return you the closest breed in this range.</div>
+</br></br>
+<input class="btn btn-dark" type="submit" name="submit_button" value="See latest attempts">
+</br></br>
 </form>
 <script>
   $('#file-upload').change(function() {
     $("#selected-file").text(this.files[0].name);
   });
 </script>
-</br></br>
-<div style="width: 80%; color: grey; font-size: small">We detect the following breeds: Akita, alaskan malamute, american pit bull terrier, american staffordshire terrier, australian cattle dog, australian shepherd, basset hound, beagle, belgian malinois, bernese mountain dog, bichon frise, border collie, boston terrier, boxer, bull terrier, bulldog, cane corso, chihuahua, chow-chow, cocker spaniel, dachshund, dalmatian, dobermann, french bulldog, german shepherd, golden retriever, great dane, greyhound, labrador retriever, maltese, miniature pinscher, newfoundland, pomeranian, poodle, pug, rhodesian ridgeback, rottweiler, samoyed, shiba inu, shih tzu, siberian husky, st. bernard, staffordshire bull terrier, west highland white terrier and yorkshire terrier.</div>
-</br></br>
-<div style="width: 80%; color: grey; font-size: small">If you submit a non-corresponding picture, we will return you the closest breed in this range.</div>
-</br></br>
 </center>
 {% endblock %}

@@ -35,7 +35,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def database_process(file, breed, success):
+def database_insert(file, breed, success):
 
     start_time = datetime.now()
     print('Connecting to PostgreSQL database ...')
@@ -55,9 +55,23 @@ def database_process(file, breed, success):
     cursor.execute(sql, (file.read(), breed, success))
     cursor.close()
     conn.commit()
+    conn.close()
 
     end_time = datetime.now()
     print('... inserted in {}.'.format(end_time-start_time))
+
+    
+def database_select():
+
+    start_time = datetime.now()
+    print('Connecting to PostgreSQL database ...')
+
+    conn = psycopg2.connect('host=' + str(os.environ.get("DOGBREEDDB_ADDR")) +' port=' + str(os.environ.get("DOGBREEDDB_PORT")) +
+                            ' dbname=dogbreed' + 
+                            ' user=' + str(os.environ.get("DOGBREEDDB_USER")) + ' password=' + str(os.environ.get("DOGBREEDDB_PASS")))
+
+    end_time = datetime.now()
+    print('... connected in {}.'.format(end_time-start_time))
 
     start_time = datetime.now()
     print('Fetching latest attempts ...')
@@ -80,7 +94,8 @@ def index():
     if request.method == 'POST':
         # If the post comes from the result template, display final template
         if request.form['submit_button'] == '  Yes  ':
-            history = database_process(io.BytesIO(base64.b64decode(request.form['image'])),request.form['breed'],True)
+            database_insert(io.BytesIO(base64.b64decode(request.form['image'])),request.form['breed'],True)
+            history = database_select()
             history_picture = []
             history_breed = []
             history_success = []
@@ -93,8 +108,8 @@ def index():
             return render_template('final.html', history=ready_history)
         else:
             if request.form['submit_button'] == '  No  ':
-                history = database_process(io.BytesIO(base64.b64decode(request.form['image'])),request.form['breed'],False)
-                index = 0
+                database_insert(io.BytesIO(base64.b64decode(request.form['image'])),request.form['breed'],False)
+                history = database_select()
                 history_picture = []
                 history_breed = []
                 history_success = []
@@ -106,32 +121,46 @@ def index():
                 # Show latest attempts
                 return render_template('final.html', history=ready_history)
             else:
-                # if the post comes from the index template, process file
-                if 'file' not in request.files:
-                    flash('No file part')
-                file = request.files['file']
-                if file.filename == '':
-                    flash('No selected file')
-                    return redirect(request.url)
-                if file and allowed_file(file.filename):
-                    url = 'http://' + str(os.environ.get("DOGBREEDSVC_ADDR")) + ':' + str(os.environ.get("DOGBREEDSVC_PORT")) + '/identify'
-                    my_img = {'image': file}
-                    r = requests.post(url, files=my_img)
-                    max_prob = 0
-                    for i in range(len(r.json()['predictions'])):
-                        if r.json()['predictions'][i]['probability']>max_prob:
-                            max_prob = r.json()['predictions'][i]['probability']
-                            predicted_breed = r.json()['predictions'][i]['breed']                    
-                    picture = Image.open(file.stream)
-                    picture.thumbnail((400,400))
-                    imgbytes = io.BytesIO()
-                    picture.save(imgbytes, "JPEG")
-                    encoded_picture = base64.b64encode(imgbytes.getvalue())
-                    if predicted_breed[0]=='A':
-                        connword = 'an'
-                    else:
-                        connword = 'a'
-                    return render_template('result.html', picture=encoded_picture.decode('utf-8'), breed=predicted_breed, connword = connword)
+                # if the post comes from the index template to see latest attempts, show them
+                if request.form['submit_button'] == 'See latest attempts':
+                    history = database_select()
+                    history_picture = []
+                    history_breed = []
+                    history_success = []
+                    for attempt in history:
+                        history_picture.append(base64.b64encode(io.BytesIO(attempt[0]).getvalue()).decode('utf-8'))
+                        history_breed.append(attempt[1])
+                        history_success.append(attempt[2])
+                    ready_history = [list(attempt) for attempt in zip(history_picture, history_breed, history_success)]
+                    # Show latest attempts
+                    return render_template('final.html', history=ready_history)
+                else:
+                    # if the post comes from the index template to submit a dog, process file
+                    if 'file' not in request.files:
+                        flash('No file part')
+                    file = request.files['file']
+                    if file.filename == '':
+                        flash('No selected file')
+                        return redirect(request.url)
+                    if file and allowed_file(file.filename):
+                        url = 'http://' + str(os.environ.get("DOGBREEDSVC_ADDR")) + ':' + str(os.environ.get("DOGBREEDSVC_PORT")) + '/identify'
+                        my_img = {'image': file}
+                        r = requests.post(url, files=my_img)
+                        max_prob = 0
+                        for i in range(len(r.json()['predictions'])):
+                            if r.json()['predictions'][i]['probability']>max_prob:
+                                max_prob = r.json()['predictions'][i]['probability']
+                                predicted_breed = r.json()['predictions'][i]['breed']                    
+                        picture = Image.open(file.stream)
+                        picture.thumbnail((400,400))
+                        imgbytes = io.BytesIO()
+                        picture.save(imgbytes, "JPEG")
+                        encoded_picture = base64.b64encode(imgbytes.getvalue())
+                        if predicted_breed[0]=='A':
+                            connword = 'an'
+                        else:
+                            connword = 'a'
+                        return render_template('result.html', picture=encoded_picture.decode('utf-8'), breed=predicted_breed, connword = connword)
     else:
         # if it's a get, show main page
         return render_template('index.html')

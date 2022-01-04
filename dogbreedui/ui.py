@@ -31,10 +31,14 @@ def bootstrap():
 
     print('... versions shown.')
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def database_process(file, breed, success):
+
     start_time = datetime.now()
     print('Connecting to PostgreSQL database ...')
-
-    global conn
 
     conn = psycopg2.connect('host=' + str(os.environ.get("DOGBREEDDB_ADDR")) +' port=' + str(os.environ.get("DOGBREEDDB_PORT")) +
                             ' dbname=dogbreed' + 
@@ -42,12 +46,6 @@ def bootstrap():
 
     end_time = datetime.now()
     print('... connected in {}.'.format(end_time-start_time))
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def database_process(file, breed, success):
 
     start_time = datetime.now()
     print('Insert record into history ...')
@@ -68,10 +66,12 @@ def database_process(file, breed, success):
     cursor = conn.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
-    cursor.close()
-
+    
     end_time = datetime.now()
     print('... fetched in {}.'.format(end_time-start_time))
+
+    cursor.close()
+    conn.close()
 
     return result
 

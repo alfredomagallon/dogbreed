@@ -1,10 +1,19 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- For all browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <!-- For Google and Android -->
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='images/favicon-48x48.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='images/favicon-192x192.png') }}">
+    <!-- For iPad -->
+    <link rel="apple-touch-icon" type="image/png" sizes="167x167" href="{{ url_for('static', filename='images/favicon-192x192.png') }}">
+    <!-- For iPhone -->
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ url_for('static', filename='images/favicon-192x192.png') }}">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='css/dogbreed.css') }}">    

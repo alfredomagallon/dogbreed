@@ -126,8 +126,12 @@ def index():
                     picture.thumbnail((400,400))
                     imgbytes = io.BytesIO()
                     picture.save(imgbytes, "JPEG")
-                    encoded_picture = base64.b64encode(imgbytes.getvalue())            
-                    return render_template('result.html', picture=encoded_picture.decode('utf-8'), breed=predicted_breed)
+                    encoded_picture = base64.b64encode(imgbytes.getvalue())
+                    if predicted_breed[0]=='A':
+                        connword = 'an'
+                    else:
+                        connword = 'a'
+                    return render_template('result.html', picture=encoded_picture.decode('utf-8'), breed=predicted_breed, connword = connword)
     else:
         # if it's a get, show main page
         return render_template('index.html')

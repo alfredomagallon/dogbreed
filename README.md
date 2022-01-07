@@ -75,12 +75,19 @@ The current implementation assumes the use of a certificate (i.e. letsencrypt) t
 The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDSVC_ADDR`: DNS name or IP address of the dogbreedsvc microservice
+
 `DOGBREEDSVC_PORT`: Port in which the dogbreedsvc is listening (defaults to 5000)
+
 `DOGBREEDUI_CERT`: Path to the certificate file (defaults to */etc/letsencrypt/live/\<domain-cn\>/cert.pem*) if using letsencrypt certbot in Linux systems)
+
 `DOGBREEDUI_KEY`: Path to the private key file (defaults to */etc/letsencrypt/live/\<domain-cn\>dog-breed.info/privkey.pem* if using letsencrypt certbot in Linux systems)
 
 The UI is using the following external python modules:

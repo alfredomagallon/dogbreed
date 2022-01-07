@@ -19,8 +19,11 @@ This script is used to take all images from the **images** folder, and create a 
 Here is where the resized images are stored in the BigAnimal database for further processing. The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
 
 The database needs to include three tables, which can be created with the following DDL code (ddl.txt):
@@ -48,16 +51,23 @@ After the bootstrap, the service stays resident (using Flask for Python framewor
 The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
 
 The service is using the following external python modules:
 
 **psycopg2** to communicate with the BigAnimal PostgreSQL database service
+
 **numpy** to manage great arrays of numbers representing the images
+
 **pillow** for image treatment
+
 **tensorflow** for creating, training and using the ML model for predictions
+
 **flask** to create a microservice using Python code
 
 A Dockerfile and an example of the docker command to run the service are provided in the repository.
@@ -93,7 +103,9 @@ The following environment variables need to be defined:
 The UI is using the following external python modules:
 
 **psycopg2** to communicate with the BigAnimal PostgreSQL database service
+
 **pillow** for image treatment
+
 **flask** to create a microservice using Python code
 
 It also uses [Bootstrap](https://getbootstrap.com/) to easily improve the Website appearance (while in an amateur way)

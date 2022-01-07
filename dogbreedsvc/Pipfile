@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 psycopg2 = "*"
-psutil = "*"
 numpy = "*"
 pillow = "*"
 tensorflow = "*"

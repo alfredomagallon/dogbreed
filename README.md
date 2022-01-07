@@ -108,7 +108,7 @@ The UI is using the following external python modules:
 
 **flask** to create a microservice using Python code
 
-It also uses <a href=https://getbootstrap.com/ target="_blank">Bootstrap</a> to easily improve the Website appearance (while in an amateur way)
+It also uses <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> to easily improve the Website appearance (while in an amateur way)
 
 A Dockerfile and an example of the docker command to run the UI are provided in the repository.
 

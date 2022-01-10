@@ -136,7 +136,7 @@ are running on a hosted VM (4 vCPU, 16GB RAM). Letsencrypt is installed on the s
 
 
 
-WebUI URL: https://dog-breed.info
+WebUI URL: <A href="https://dog-breed.info" target="_new">https://dog-breed.info</A>
 
 
 > Written with [StackEdit](https://stackedit.io/).

@@ -19,8 +19,11 @@ This script is used to take all images from the **images** folder, and create a 
 Here is where the resized images are stored in the BigAnimal database for further processing. The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
 
 The database needs to include three tables, which can be created with the following DDL code (ddl.txt):
@@ -48,8 +51,11 @@ After the bootstrap, the service stays resident (using Flask for Python framewor
 The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
 
 The service is using the following external python modules:
@@ -75,12 +81,19 @@ The current implementation assumes the use of a certificate (i.e. letsencrypt) t
 The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
+
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
+
 `DOGBREEDSVC_ADDR`: DNS name or IP address of the dogbreedsvc microservice
+
 `DOGBREEDSVC_PORT`: Port in which the dogbreedsvc is listening (defaults to 5000)
+
 `DOGBREEDUI_CERT`: Path to the certificate file (defaults to */etc/letsencrypt/live/\<domain-cn\>/cert.pem*) if using letsencrypt certbot in Linux systems)
+
 `DOGBREEDUI_KEY`: Path to the private key file (defaults to */etc/letsencrypt/live/\<domain-cn\>dog-breed.info/privkey.pem* if using letsencrypt certbot in Linux systems)
 
 The UI is using the following external python modules:
@@ -112,10 +125,16 @@ PostgreSQL database running on EDB's BigAnimal
 Docker images:
 
 `oder70/dogbreedsvc:1.18`
+
 `oder70/dogbreedui:1.17`
+
 `oder70/dogbreedui_redirect:1.0`
 
+
 are running on a hosted VM (4 vCPU, 16GB RAM). Letsencrypt is installed on the same VM, providing the TLS cert.
+
+
+
 
 WebUI URL: https://dog-breed.info
 

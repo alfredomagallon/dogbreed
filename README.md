@@ -19,11 +19,8 @@ This script is used to take all images from the **images** folder, and create a 
 Here is where the resized images are stored in the BigAnimal database for further processing. The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
-
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
-
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
-
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
 
 The database needs to include three tables, which can be created with the following DDL code (ddl.txt):
@@ -42,7 +39,7 @@ Once we have our database full of dog images of the different breeds, we can use
 
 The service loads the images from the database, trains the model with them, and then stays running as a microservice listening to requests from the WebUI.
 
-As we planned to run the service using CPU and a few gigs of RAM, the service uses a pre-trained model called **Xception**. On top of it, there is the final layer with our 45 breeds that the model will predict.
+As the plan was to run the service using CPU and a few gigs of RAM, the service uses a pre-trained model called **Xception**. On top of it, there is the final layer with our 45 breeds that the model will predict.
 
 The bootstrap phase of the service perform all the initial tasks of creating and training the model. It takes around 35 minutes on a system without GPU, and uses a maximum of around 6,5 GB RAM.
 
@@ -51,23 +48,16 @@ After the bootstrap, the service stays resident (using Flask for Python framewor
 The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
-
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
-
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
-
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
 
 The service is using the following external python modules:
 
 **psycopg2** to communicate with the BigAnimal PostgreSQL database service
-
 **numpy** to manage great arrays of numbers representing the images
-
 **pillow** for image treatment
-
 **tensorflow** for creating, training and using the ML model for predictions
-
 **flask** to create a microservice using Python code
 
 A Dockerfile and an example of the docker command to run the service are provided in the repository.
@@ -85,30 +75,21 @@ The current implementation assumes the use of a certificate (i.e. letsencrypt) t
 The following environment variables need to be defined:
 
 `DOGBREEDDB_ADDR`: DNS name of the BigAnimal database service (returned when creating the DB cluster in BA)
-
 `DOGBREEDDB_PORT`: Port of the BigAnimal database service (returned when creating the DB cluster in BA)
-
 `DOGBREEDDB_USER`: Typed in BigAnimal during cluster creation
-
 `DOGBREEDDB_PASS`: Typed in BigAnimal during cluster creation
-
 `DOGBREEDSVC_ADDR`: DNS name or IP address of the dogbreedsvc microservice
-
 `DOGBREEDSVC_PORT`: Port in which the dogbreedsvc is listening (defaults to 5000)
-
 `DOGBREEDUI_CERT`: Path to the certificate file (defaults to */etc/letsencrypt/live/\<domain-cn\>/cert.pem*) if using letsencrypt certbot in Linux systems)
-
 `DOGBREEDUI_KEY`: Path to the private key file (defaults to */etc/letsencrypt/live/\<domain-cn\>dog-breed.info/privkey.pem* if using letsencrypt certbot in Linux systems)
 
 The UI is using the following external python modules:
 
 **psycopg2** to communicate with the BigAnimal PostgreSQL database service
-
 **pillow** for image treatment
-
 **flask** to create a microservice using Python code
 
-It also uses **Bootsrap** to easily improve the Website appearance (while in an amateur way)
+It also uses [Bootstrap](https://getbootstrap.com/) to easily improve the Website appearance (while in an amateur way)
 
 A Dockerfile and an example of the docker command to run the UI are provided in the repository.
 
@@ -123,5 +104,20 @@ The following environment variable need to be defined:
 The redirect helper is using the following external python modules:
 
 **flask** to create a microservice using Python code
+
+## Example implementation (temporary) ##
+
+PostgreSQL database running on EDB's BigAnimal
+
+Docker images:
+
+`oder70/dogbreedsvc:1.18`
+`oder70/dogbreedui:1.17`
+`oder70/dogbreedui_redirect:1.0`
+
+are running on a hosted VM (4 vCPU, 16GB RAM). Letsencrypt is installed on the same VM, providing the TLS cert.
+
+WebUI URL: https://dog-breed.info
+
 
 > Written with [StackEdit](https://stackedit.io/).
